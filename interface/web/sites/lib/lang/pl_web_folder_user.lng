@@ -1,0 +1,7 @@
+<?php
+$wb['web_folder_id_txt'] = 'Katalog';
+$wb['username_txt'] = 'Login';
+$wb['password_txt'] = 'Hasło';
+$wb['active_txt'] = 'Aktywny';
+$wb['folder_error_empty'] = 'Nie wybrano katalogu.';
+?>

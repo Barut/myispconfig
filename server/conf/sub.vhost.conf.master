@@ -1,0 +1,75 @@
+<VirtualHost {tmpl_var name='ip_address'}:{tmpl_var name='port'}>
+
+  	<tmpl_if name='php' op='==' value='mod'>
+    DocumentRoot <tmpl_var name='document_root'>/public_html/<tmpl_var name='sub'>
+  	</tmpl_if>
+  	
+
+    ServerName <tmpl_var name='sub'>.<tmpl_var name='domain'>
+<tmpl_if name='alias'>
+    ServerAlias <tmpl_var name='alias'>
+</tmpl_if>
+    ServerAdmin webmaster@<tmpl_var name='domain'>
+
+    ErrorLog /var/log/ispconfig/httpd/<tmpl_var name='domain'>/<tmpl_var name='sub'>.error.log
+
+	
+    <Directory {tmpl_var name='document_root'}/public_html/<tmpl_var name='sub'>>
+        Options FollowSymLinks
+        AllowOverride <tmpl_var name='allow_override'>
+        Order allow,deny
+        Allow from all
+		<tmpl_if name='ssi' op='==' value='y'>
+        	# ssi enabled
+        	AddType text/html .shtml
+        	AddOutputFilter INCLUDES .shtml
+        	Options +Includes
+		</tmpl_if>
+		
+		<tmpl_if name='php' op='==' value='no'>
+        	<Files ~ '.php[s3-6]{0,1}$'>
+            	Order allow,deny
+            	Deny from all
+            	Allow from none
+        	</Files>
+		</tmpl_if>
+    </Directory>
+    
+    # Clear PHP settings of this website
+    <FilesMatch "\.ph(p3?|tml)$">
+        SetHandler None
+    </FilesMatch>
+    
+<tmpl_if name='php' op='==' value='mod'>
+    # mod_php enabled
+    AddType application/x-httpd-php .php .php3 .php4 .php5
+    php_admin_value sendmail_path "/usr/sbin/sendmail -t -i -fwebmaster@<tmpl_var name='domain'>"	
+    php_admin_value upload_tmp_dir <tmpl_var name='document_root'>/tmp
+    php_admin_value session.save_path <tmpl_var name='document_root'>/tmp
+	# PHPIniDir <tmpl_var name='custom_php_ini_dir'>
+	<tmpl_if name='security_level' op='==' value='20'>
+    	php_admin_value open_basedir <tmpl_var name='php_open_basedir'>
+	</tmpl_if>
+</tmpl_if>
+
+    # add support for apache mpm_itk
+    <IfModule mpm_itk_module>
+      AssignUserId <tmpl_var name='system_user'> <tmpl_var name='system_group'>
+    </IfModule>
+
+    <IfModule mod_dav_fs.c>
+	  # Do not execute PHP files in webdav directory
+      <Directory {tmpl_var name='document_root'}/webdav>
+	    <FilesMatch "\.ph(p3?|tml)$">
+          SetHandler None
+        </FilesMatch>
+      </Directory>
+      DavLockDB {tmpl_var name='document_root'}/tmp/DavLock
+      # DO NOT REMOVE THE COMMENTS!
+      # IF YOU REMOVE THEM, WEBDAV WILL NOT WORK ANYMORE!
+      # WEBDAV BEGIN
+      # WEBDAV END
+    </IfModule>
+
+<tmpl_var name='apache_directives'>
+</VirtualHost>

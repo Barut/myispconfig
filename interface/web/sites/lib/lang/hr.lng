@@ -1,0 +1,25 @@
+<?php
+$wb['Database'] = 'Baza';
+$wb['Options'] = 'Opcije';
+$wb['Shell User'] = 'Shell korisnik';
+$wb['Domain'] = 'Domena';
+$wb['Website'] = 'Web stranica';
+$wb['Redirect'] = 'Preusmjeravanje';
+$wb['SSL'] = 'SSL';
+$wb['Subdomain'] = 'Poddomena';
+$wb['Sites'] = 'Web stranice';
+$wb['Aliasdomain'] = 'Alias za web stranicu';
+$wb['FTP-User'] = 'FTP korisnik';
+$wb['FTP'] = 'FTP';
+$wb['Shell-User'] = 'Shell korisnik';
+$wb['Shell'] = 'Shell';
+$wb['Webdav-User'] = 'Webdav korisnik';
+$wb['Webdav'] = 'Webdav';
+$wb['Websites'] = 'Web stranice';
+$wb['Stats'] = 'Statistike';
+$wb['Cron'] = 'Cron';
+$wb['Cron Jobs'] = 'Cron zadaci';
+$wb['Statistics'] = 'Statistike';
+$wb['Web traffic'] = 'Promet web stranice';
+$wb['Website quota (Harddisk)'] = 'Kvota web stranice (tvrdi disk)';
+?>

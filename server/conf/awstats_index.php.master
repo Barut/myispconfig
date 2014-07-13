@@ -1,0 +1,69 @@
+<script>
+function load_content(url)
+{
+    var iframe = document.getElementById("content");
+    iframe.src = url;
+}
+</script>
+
+<?php
+$aw['aw_jump_text'] = 'Jump to previous stats: ';
+$aw['aw_renamed_index'] = 'awsindex.html';
+
+if ($handle = opendir('.'))
+{
+        while(false !== ($file = readdir($handle)))
+        {
+                if (substr($file,0,1) != "." && is_dir($file))
+                {
+                        $orderkey = substr($file,0,4).substr($file,5,2);
+                        if (substr($file,5,2) < 10 )
+                        {
+                                $orderkey = substr($file,0,4)."0".substr($file,5,2);
+                        }
+                        $awprev[$orderkey] = $file;
+                }
+        }
+
+        $month = date("n");
+        $year = date("Y");
+		
+        if (date("d") == 1)
+        {
+                $month = date("m")-1;
+                if (date("m") == 1)
+                {
+                        $year = date("Y")-1;
+                        $month = "12";
+                }
+        }
+
+        $current = $year.$month;
+		if ( $month < 10 ) {
+			$current = $year."0".$month;
+		}
+		$awprev[$current] = $year."-".$month;
+
+		closedir($handle);
+}
+
+echo '<div style="width: 97%; margin-left: 4px; height: 20px; background-color: #FFFFFF; position: fixed; padding: 7px; border: 2px solid #cccccc;><div align="left"><font color="#000000" size="2" face="Verdana, Arial, Helvetica,  sans-serif">' .$aw["aw_jump_text"]. '</font </div>';
+
+echo "<select name='awdate' onchange=\"load_content(this.value)\">";
+krsort($awprev);
+
+foreach ($awprev as $key => $value)
+{
+        if($key == $current)
+        {
+                echo "<option selected=\"selected\" value=\"".$aw['aw_renamed_index']."\"> $value</option>";
+        }
+        else
+        {
+                echo "<option value='$value/".$aw['aw_renamed_index']."'> $value</option>";
+        }
+}
+
+echo '</select></div><iframe src="'.$aw['aw_renamed_index'].'" frameborder="0" scrolling="Yes" width="100%" height="100%" style="margin-top:25px" id="content"></iframe>';
+
+?>

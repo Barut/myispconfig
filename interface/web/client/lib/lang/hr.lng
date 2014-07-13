@@ -1,0 +1,17 @@
+<?php
+$wb['Client'] = 'Klijenti';
+$wb['Address'] = 'Adresa';
+$wb['Limits'] = 'Limiti';
+$wb['Add Client'] = 'Dodaj klijenta';
+$wb['Edit Client'] = 'Editiraj klijenta';
+$wb['Clients'] = 'Klijenti';
+$wb['Edit Client-Templates'] = 'Editiraj predložak za klijente';
+$wb['Add Reseller'] = 'Dodaj preprodavača';
+$wb['Edit Reseller'] = 'Editiraj preprodavača';
+$wb['Resellers'] = 'Preprodavači';
+$wb['error_has_clients'] = 'Ovaj preprodavač ima klijente. Prvo morate obrisati klijente preprodavača.';
+$wb['add_additional_template_txt'] = 'Dodaj dodatni predložak';
+$wb['delete_additional_template_txt'] = 'Obriši dodatni predložak';
+$wb['Messaging'] = 'Messaging';
+$wb['Send Email'] = 'Send Email';
+?>

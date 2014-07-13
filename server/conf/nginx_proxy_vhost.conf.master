@@ -1,0 +1,67 @@
+server {
+        
+
+    listen <tmpl_var name='ip_address'>:80;
+    
+    server_name  <tmpl_var name='domain'> <tmpl_var name='alias'>;
+    
+    access_log  /var/log/ispconfig/httpd/<tmpl_var name='domain'>/nginx.access.log  main;
+    error_log  /var/log/ispconfig/httpd/<tmpl_var name='domain'>/nginx.error.log  notice;
+
+    server_name_in_redirect  off;
+    
+    index index.html;
+
+    if ($http_range ~ "(\d*\s*-\s*\d*\s*,\s*){5,}") {
+          return 416;
+    }
+
+    
+    root <tmpl_var name='document_root'>;
+    
+    location ~ /\.ht {
+        deny all;
+    }
+
+    location ~ ^/roundcube/(.*\.(jpg|jpeg|gif|png|ico|mp3|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|dat|avi|ppt|txt|tar|mid|midi|wav|bmp|rtf|wmv|mpeg|mpg|tbz|js))$ {
+            alias /var/www/roundcube/$1;
+            expires 7d;
+            add_header Cache-Control public;
+    }
+
+    location ~ ^/phpmyadmin/(.*\.(jpg|jpeg|gif|png|ico|mp3|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|dat|avi|ppt|txt|tar|mid|midi|wav|bmp|rtf|wmv|mpeg|mpg|tbz|js))$ {
+            alias /var/www/phpmyadmin/$1;
+            expires 7d;
+            add_header Cache-Control public;
+    }
+
+    location ~ ^/squirrelmail/(.*\.(jpg|jpeg|gif|png|ico|mp3|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|dat|avi|ppt|txt|tar|mid|midi|wav|bmp|rtf|wmv|mpeg|mpg|tbz|js))$ {
+            alias /var/www/squirrelmail/$1;
+            expires 7d;
+            add_header Cache-Control public;
+    }
+    
+    location ~ ^/webmail/(.*\.(jpg|jpeg|gif|png|ico|mp3|css|zip|tgz|gz|rar|bz2|doc|xls|exe|pdf|dat|avi|ppt|txt|tar|mid|midi|wav|bmp|rtf|wmv|mpeg|mpg|tbz|js))$ {
+            alias /var/www/squirrelmail/$1;
+            expires 7d;
+            add_header Cache-Control public;
+    }
+
+        
+    location ~* \.php {
+             proxy_pass         http://<tmpl_var name='ip_address'>;
+    }
+    
+    location / {
+        try_files	$uri	$uri/	@upstream;
+        error_page  404 = @upstream;
+        error_page  403 = @upstream;
+    }
+
+
+    location @upstream {
+        proxy_pass  http://<tmpl_var name='ip_address'>;
+    }
+            
+         
+}

@@ -1,0 +1,25 @@
+<?php
+$wb['Database'] = 'Database';
+$wb['Options'] = 'Opzioni';
+$wb['Shell User'] = 'Utente Shell';
+$wb['Domain'] = 'Dominio';
+$wb['Redirect'] = 'Redirect';
+$wb['SSL'] = 'SSL';
+$wb['Subdomain'] = 'Sottodomini';
+$wb['Sites'] = 'Siti';
+$wb['Aliasdomain'] = 'Alias dominio';
+$wb['FTP-User'] = 'Utente FTP';
+$wb['FTP'] = 'FTP';
+$wb['Shell-User'] = 'Utente Shell';
+$wb['Shell'] = 'Shell';
+$wb['Websites'] = 'Siti';
+$wb['Stats'] = 'Statistiche';
+$wb['Website'] = 'Sito web';
+$wb['Cron'] = 'Cron';
+$wb['Cron Jobs'] = 'Cron Jobs';
+$wb['Statistics'] = 'Statistiche';
+$wb['Web traffic'] = 'Traffico web';
+$wb['Webdav-User'] = 'Utente Webdav';
+$wb['Webdav'] = 'Webdav';
+$wb['Website quota (Harddisk)'] = 'Quota sito web (Harddisk)';
+?>
